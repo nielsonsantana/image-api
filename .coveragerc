@@ -1,0 +1,3 @@
+[run]
+source = image_api
+omit = image_api/test*

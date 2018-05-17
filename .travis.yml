@@ -1,0 +1,6 @@
+sudo: true
+before_install:
+  - sudo apt-get update -qq
+language: python
+python:
+  - "3.5"
