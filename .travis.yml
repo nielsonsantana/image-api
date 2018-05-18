@@ -11,4 +11,4 @@ jobs:
       - docker tag image-api-pyramid $DOCKER_USERNAME/image-api-pyramid
       - docker push $DOCKER_USERNAME/image-api-pyramid
     - stage: test
-      script: docker run --rm $DOCKER_USERNAME/image-api-pyramid pytest
+      script: docker run --rm $DOCKER_USERNAME/image-api-pyramid bash -c "pip install -r requirements/test.txt && pytest"
