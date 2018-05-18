@@ -1,7 +1,6 @@
 Image Api in Pyramid
 =========
 
-
 This project was built based on template [pyramid-cookiecutter-alchemy][https://github.com/Pylons/pyramid-cookiecutter-alchemy].
 
 Não gostei do modo como as rotas são declaradas.
