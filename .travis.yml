@@ -9,8 +9,6 @@ jobs:
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t $DOCKER_USERNAME/image-api-pyramid .
-      - docker images
-      - docker tag image-api-pyramid $DOCKER_USERNAME/image-api-pyramid
       - docker push $DOCKER_USERNAME/image-api-pyramid
     - stage: test
       script: docker run --rm $DOCKER_USERNAME/image-api-pyramid bash -c "pip install -r requirements/test.txt && pytest"
