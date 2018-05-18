@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Image Api in Pyramid
 =========
 
@@ -46,7 +45,3 @@ Getting Started
 - Run your project.
 
     env/bin/pserve development.ini
-=======
-# image-api
-Image Api in Pyramid
->>>>>>> 85d863286f2511525e26ff9c154d1fcbc7c4d2f9
