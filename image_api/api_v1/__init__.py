@@ -1,4 +1,4 @@
 
 def includeme(config):
     # Required by pyramid
-    pass
+    config.scan('.views')

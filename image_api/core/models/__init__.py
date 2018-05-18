@@ -54,9 +54,6 @@ def get_tm_session(session_factory, transaction_manager):
 def includeme(config):
     """
     Initialize the model for a Pyramid app.
-
-    Activate this setup using ``config.include('image_api.models')``.
-
     """
     settings = config.get_settings()
     settings['tm.manager_hook'] = 'pyramid_tm.explicit_manager'

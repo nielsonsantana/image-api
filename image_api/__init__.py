@@ -11,5 +11,6 @@ def main(global_config, **settings):
     config.include('.routes')
     config.include('.core')
     config.include('.api_v1')
+    config.include('cornice')
     config.scan()
     return config.make_wsgi_app()

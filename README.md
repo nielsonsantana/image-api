@@ -1,10 +1,20 @@
-image-api
+Image Api in Pyramid
 =========
 
 
-This project was built based on template https://github.com/Pylons/pyramid-cookiecutter-alchemy.
+This project was built based on template [pyramid-cookiecutter-alchemy][https://github.com/Pylons/pyramid-cookiecutter-alchemy].
 
 Não gostei do modo como as rotas são declaradas.
+
+Pontos que não gostei no pyramid:
+Não encontrei uma forma simples de gerar a url sem baseado no nome da rota.
+
+
+Instalação do docker-compose
+
+https://docs.docker.com/compose/install/
+
+
 
 Getting Started
 ---------------
