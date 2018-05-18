@@ -1,12 +1,14 @@
-sudo: true
-dist: trusty
+sudo: required
+language: python
+services:
+  - docker
 
 jobs:
   include:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t image-api-pyramid .
+      - docker build -t $DOCKER_USERNAME/image-api-pyramid .
       - docker images
       - docker tag image-api-pyramid $DOCKER_USERNAME/image-api-pyramid
       - docker push $DOCKER_USERNAME/image-api-pyramid
