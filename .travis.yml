@@ -1,6 +1,14 @@
 sudo: true
-before_install:
-  - sudo apt-get update -qq
-language: python
-python:
-  - "3.5"
+dist: trusty
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t image-api-pyramid .
+      - docker images
+      - docker tag image-api-pyramid $DOCKER_USERNAME/image-api-pyramid
+      - docker push $DOCKER_USERNAME/image-api-pyramid
+    - stage: test
+      script: docker run --rm $DOCKER_USERNAME/image-api-pyramid pytest
