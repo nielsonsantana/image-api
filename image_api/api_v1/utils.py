@@ -2,11 +2,17 @@ import base64
 import magic
 import os
 import re
+import shutil
+import tempfile
+import uuid
+
+from image_api.settings import get_media_dir
 
 
 class SourceFile(object):
     BUFFER = 0
     FILE = 1
+
 
 EXTENSIONS = {
     'png': 'png',
@@ -44,8 +50,20 @@ def base64decode(image):
     return base64.b64decode(image)
 
 
-def store_image(image):
-    pass
+def save_image(image_content, delete=False):
+    temp = tempfile.NamedTemporaryFile(delete=delete)
+    temp.write(image_content)
+    temp.close()
+
+    metadata = extract_metadata(temp.name)
+    extension = metadata.get('extension')
+    filename = '{}.{}'.format(uuid.uuid4().hex, extension)
+    filename_path = '{}/{}'.format(get_media_dir(), filename)
+
+    if not delete:
+        shutil.copy(temp.name, filename_path)
+
+    return filename, filename_path
 
 
 def retrive_image(image):

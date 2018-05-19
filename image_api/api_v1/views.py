@@ -11,6 +11,7 @@ from image_api.settings import get_media_dir
 
 from .models import Image
 from .utils import base64decode
+from .utils import save_image
 
 
 MEDIA_DIR = 'media/'
@@ -75,20 +76,13 @@ def image_get(request, **kwargs):
 def image_put(request, **kwargs):
     image = kwargs.get('obj')
 
-    file_content = request.json_body.get('image', '')
-    image_file = base64decode(file_content)
+    image_base64 = request.json_body.get('image', '')
+    image_content = base64decode(image_base64)
+    filename, filename_path = save_image(image_content)
 
-    temp = tempfile.NamedTemporaryFile(delete=False)
-    temp.write(image_file)
-    temp.close()
-
-    filename = '{}.{}'.format(uuid.uuid4().hex, image.extension)
-    filename_path = '{}/{}'.format(get_media_dir(), filename)
-
-    shutil.copy(temp.name, filename_path)
+    image.update_image_matadata(filename_path)
     image.filename = filename
 
-    image.update_image_matadata(temp.name)
     image.save(request.dbsession)
 
     return APIResponse('Updated', content=image.to_json())
@@ -120,23 +114,14 @@ def image_list_get(request, **kwargs):
 
 
 def image_list_post(request, **kwargs):
-    file_content = request.json_body.get('image', None)
-    image_file = base64decode(file_content)
+    image_base64 = request.json_body.get('image', None)
+    image_content = base64decode(image_base64)
+
+    filename, filename_path = save_image(image_content)
 
     image = Image()
-
-    temp = tempfile.NamedTemporaryFile(delete=False)
-    temp.write(image_file)
-    temp.close()
-
-    image.update_image_matadata(temp.name)
-
-    filename = '{}.{}'.format(uuid.uuid4().hex, image.extension)
-    filename_path = '{}/{}'.format(get_media_dir(), filename)
-
-    shutil.copy(temp.name, filename_path)
+    image.update_image_matadata(filename_path)
     image.filename = filename
-
     image.save(request.dbsession)
 
     return APIResponse('Created', code=201, content=image.to_json())
