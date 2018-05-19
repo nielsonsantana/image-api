@@ -56,7 +56,7 @@ This tree show some notes about the code structure of the project.
     └── setup.py
 
 ## Getting Started
-To start using the project In order to use and develop the project is need install
+To start using the project you can use docker-compose and docker tools.
 
 ### Using docker-compose
 Fallow the install instructions at https://docs.docker.com/compose/install/
