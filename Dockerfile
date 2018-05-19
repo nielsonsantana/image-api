@@ -11,6 +11,8 @@ WORKDIR /app/
 RUN pip install -r /app/requirements.txt
 
 ADD . /app/
+
 RUN chmod +x /app/compose/start.sh
+RUN chmod +x /app/docker-entrypoint.sh
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
