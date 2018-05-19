@@ -69,4 +69,4 @@ Start the image-api with the command:
     docker run --rm image-api bash -c "pip install -r requirements/tests.txt && pytest"
 
 ## API
-API docs at https://
+API docs at https://app.swaggerhub.com/apis/nsantana/Image-api-pyramid/1.0.0
