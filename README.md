@@ -70,3 +70,6 @@ Start the image-api with the command:
 
 ## API
 API docs at https://app.swaggerhub.com/apis/nsantana/Image-api-pyramid/1.0.0
+
+## Automated Build and Test
+Access at https://travis-ci.org/nielsonsantana/image-api
