@@ -5,41 +5,38 @@ Image Api in Pyramid
 
 This project was built based on template [pyramid-cookiecutter-alchemy](https://github.com/Pylons/pyramid-cookiecutter-alchemy).
 
-Pontos que não gostei no pyramid:
-Não encontrei uma forma simples de gerar a url sem baseado no nome da rota.
-
 ## Project Structure
 This tree show some notes about the code structure of the project.
     
     .
     ├── CHANGES.txt
     ├── compose
-    │   └── start.sh
+    │   └── start.sh            # Script to start the server in development mode
     ├── development.ini
     ├── docker-compose.yml
     ├── docker-entrypoint.sh
     ├── Dockerfile
     ├── documentation-api.yml
     ├── image_api
-	│   ├── api_v1				# Main application where the REST API was implemented
-	│   │   ├── __init__.py
-	│   │   ├── models.py 		# Image model
-	│   │   ├── routes.py 		# Api routes
-	│   │   ├── tests			# Tests for views, model, utils and functional
-	│   │   ├── utils.py 		# Helper functions
-	│   │   └── views.py
-	│   ├── core
-	│   │   ├── __init__.py
-	│   │   ├── models
-	│   │   ├── routes.py
-	│   │   └── views.py
-    │   ├── __init__.py 		# Initialize the Project 
-    │   ├── routes.py 			# Setup routes
-    │   ├── scripts				# Script to initialize db
+    │   ├── api_v1              # Main application where the REST API was implemented
+    │   │   ├── __init__.py
+    │   │   ├── models.py       # Image model
+    │   │   ├── routes.py       # Api routes
+    │   │   ├── tests           # Tests for views, model, utils and functional
+    │   │   ├── utils.py        # Helper functions
+    │   │   └── views.py
+    │   ├── core
+    │   │   ├── __init__.py
+    │   │   ├── models
+    │   │   ├── routes.py
+    │   │   └── views.py
+    │   ├── __init__.py         # Initialize the Project 
+    │   ├── routes.py           # Setup routes
+    │   ├── scripts             # Script to initialize db
     │   ├── static
     │   └── templates
     ├── LICENSE
-    ├── media 					# Directore to store of images
+    ├── media                   # Directore to store of images
     ├── production.ini
     ├── pytest.ini
     ├── README.md
@@ -50,10 +47,13 @@ This tree show some notes about the code structure of the project.
     └── setup.py
 
 ## Getting Started
-To start using the project In order to use and develop the project is need install 
+To start using the project In order to use and develop the project is need install
+
 ### Using docker-compose
 Fallow the install instructions at https://docs.docker.com/compose/install/
+
 After install docker-compose, use this command to start:
+
     docker-compose up
     
 ### Using docker
