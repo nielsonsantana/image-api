@@ -1,6 +1,3 @@
-import json
-import transaction
-
 from pyramid import testing
 
 from image_api.api_v1.models import Image

@@ -3,9 +3,7 @@ import enum
 from sqlalchemy import Column
 from sqlalchemy import Index
 from sqlalchemy import Integer
-from sqlalchemy import Text
 from sqlalchemy import String
-from sqlalchemy import Enum
 
 from image_api.core.models import Base
 from .utils import extract_metadata

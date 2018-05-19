@@ -1,20 +1,11 @@
 import json
-import shutil
-import tempfile
-import uuid
-
 from pyramid.response import Response
 from pyramid.view import notfound_view_config
 from pyramid.view import view_config
 
-from image_api.settings import get_media_dir
-
 from .models import Image
 from .utils import base64decode
 from .utils import save_image
-
-
-MEDIA_DIR = 'media/'
 
 
 class APIResponse(object):
