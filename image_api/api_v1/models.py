@@ -7,7 +7,7 @@ from sqlalchemy import Text
 from sqlalchemy import String
 from sqlalchemy import Enum
 
-from image_api.core.models import ModelBase
+from image_api.core.models import Base
 
 
 class ImageFormatEnum(enum.Enum):
@@ -15,7 +15,7 @@ class ImageFormatEnum(enum.Enum):
     PNG = 'png'
 
 
-class Image(ModelBase):
+class Image(Base):
     __tablename__ = 'image'
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -25,8 +25,11 @@ class Image(ModelBase):
     length = Column(Integer)
     filename = Column(String)
 
-    def store_file(self):
-        pass
+    image = None
+
+    def save(self, dbsession):
+        dbsession.add(self)
+        dbsession.flush()
 
     def retrive_file(self):
         pass
@@ -34,6 +37,9 @@ class Image(ModelBase):
     @classmethod
     def from_json(cls, data):
         return cls(**data)
+
+    def __json__(self):
+        return self.to_json()
 
     def to_json(self, serialize_fields=[]):
         if not serialize_fields:
@@ -45,35 +51,12 @@ class Image(ModelBase):
         d = {}
         for attr_name in serialize_fields:
             d[attr_name] = getattr(self, attr_name)
+
+        d.update(url=self.get_absolute_url_image())
         return d
 
-
-# class Note(ModelBase):
-#     __tablename__ = 'Note'
-#     id = Column(Integer, primary_key=True)
-#     title = Column(Text)
-#     description = Column(Text)
-#     create_at = Column(Text)
-#     create_by = Column(Text)
-#     priority = Column(Integer)
-
-#     def __init__(self, title, description, create_at, create_by, priority):
-#         self.title = title
-#         self.description = description
-#         self.create_at = create_at
-#         self.create_by = create_by
-#         self.priority = priority
-
-#     @classmethod
-#     def from_json(cls, data):
-#         return cls(**data)
-
-#     def to_json(self):
-#         to_serialize = ['id', 'title', 'description', 'create_at', 'create_by', 'priority']
-#         d = {}
-#         for attr_name in to_serialize:
-#             d[attr_name] = getattr(self, attr_name)
-#         return d
+    def get_absolute_url_image(self):
+        pass
 
 
-Index('image_index', Image.name, unique=True, mysql_length=255)
+Index('image_index', Image.name, unique=False, mysql_length=255)

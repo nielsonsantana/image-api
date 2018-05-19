@@ -18,7 +18,7 @@ class ImageModelTests(BaseTest):
         image = Image()
         image.size = metadata.get('size')
         self.dbsession.add(image)
-        transaction.commit()
+        self.dbsession.flush()
         query = self.dbsession.query(Image)
 
         assert query.count() == 1

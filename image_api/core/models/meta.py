@@ -13,4 +13,4 @@ NAMING_CONVENTION = {
 }
 
 metadata = MetaData(naming_convention=NAMING_CONVENTION)
-ModelBase = declarative_base(metadata=metadata)
+Base = declarative_base(metadata=metadata)

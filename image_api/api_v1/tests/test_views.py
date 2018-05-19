@@ -6,7 +6,7 @@ import unittest
 
 from pyramid import testing
 
-from image_api.core.models import ModelBase
+from image_api.core.models import Base
 from image_api.core.models import get_engine
 from image_api.core.models import get_session_factory
 from image_api.core.models import get_tm_session
@@ -43,12 +43,12 @@ class BaseTest(unittest.TestCase):
         self.dbsession = get_tm_session(session_factory, transaction.manager)
 
     def init_database(self):
-        ModelBase.metadata.create_all(self.engine)
+        Base.metadata.create_all(self.engine)
 
     def tearDown(self):
         testing.tearDown()
         transaction.abort()
-        ModelBase.metadata.drop_all(self.engine)
+        Base.metadata.drop_all(self.engine)
 
 
 class ImageRestApiTests(BaseTest):
@@ -62,34 +62,40 @@ class ImageRestApiTests(BaseTest):
         request = dummy_request(self.dbsession, method='POST')
         request.json_body = params
         response = image_list(request)
-        assert response.status_int == 201
+
+        assert response.code == 201
+        query = self.dbsession.query(Image)
+        assert query.count() == 1
 
     def test_register_image_jpg(self):
         params = {'image': IMAGE_JPG_ENCODED_STRING, 'name': 'image1.jpg'}
         request = dummy_request(self.dbsession, method='POST')
         request.json_body = params
         response = image_list(request)
-        assert response.status_int == 201
+
+        assert response.code == 201
+        query = self.dbsession.query(Image)
+        assert query.count() == 1
+
+    def test_get_image_metadata(self):
+        params = {'image': IMAGE_JPG_ENCODED_STRING, 'name': 'image1.jpg'}
+        request = dummy_request(self.dbsession, method='GET')
+        request.json_body = params
+        response = image_list(request)
+
+        request_retrive = dummy_request(self.dbsession)
+        request_retrive.matchdict = {'id': ''}
+        response = image_detail(request_retrive)
+
+        assert response
+
+    def test_get_image_list(self):
+        request = dummy_request(self.dbsession)
+        # request.matchdict = {'file': img}
+        response = image_detail(request)
 
         # assert response
         # print(response)
-
-    # def test_retrive_image(self):
-    #     request = dummy_request(self.dbsession)
-    #     img = open('resources/pyramid-logo.jpg', 'r')
-    #     request.matchdict = {'id': ''}
-    #     response = image_detail(request)
-
-    #     assert response
-
-    # def test_update_image(self):
-    #     request = dummy_request(self.dbsession)
-    #     img = open('resources/pyramid-logo.jpg', 'r')
-    #     request.matchdict = {'file': img}
-    #     response = image_detail(request)
-
-    #     # assert response
-    #     print(response)
 
     # def test_update_image(self):
     #     request = dummy_request(self.dbsession)

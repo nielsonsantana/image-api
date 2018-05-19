@@ -5,7 +5,7 @@ import unittest
 
 from pyramid import testing
 
-from image_api.core.models import ModelBase
+from image_api.core.models import Base
 from image_api.core.models import get_engine
 from image_api.core.models import get_session_factory
 from image_api.core.models import get_tm_session
@@ -17,7 +17,6 @@ class BaseTest(unittest.TestCase):
         self.config = testing.setUp(settings={
             'sqlalchemy.url': 'sqlite:///:memory:'
         })
-        self.config.include('image_api.core')
         settings = self.config.get_settings()
 
         self.engine = get_engine(settings)
@@ -25,10 +24,17 @@ class BaseTest(unittest.TestCase):
 
         self.dbsession = get_tm_session(session_factory, transaction.manager)
 
+        self.config.add_request_method(
+            # r.tm is the transaction manager used by pyramid_tm
+            lambda r: get_tm_session(session_factory, r.tm),
+            'dbsession',
+            reify=True
+        )
+
     def init_database(self):
-        ModelBase.metadata.create_all(self.engine)
+        Base.metadata.create_all(self.engine)
 
     def tearDown(self):
         testing.tearDown()
         transaction.abort()
-        ModelBase.metadata.drop_all(self.engine)
+        Base.metadata.drop_all(self.engine)

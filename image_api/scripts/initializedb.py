@@ -10,7 +10,7 @@ from pyramid.scripts.common import parse_vars
 from image_api.core.models import get_engine
 from image_api.core.models import get_session_factory
 from image_api.core.models import get_tm_session
-from image_api.core.models import ModelBase
+from image_api.core.models import Base
 
 from image_api.api_v1.models import Image
 
@@ -31,7 +31,7 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri, options=options)
 
     engine = get_engine(settings)
-    ModelBase.metadata.create_all(engine)
+    Base.metadata.create_all(engine)
 
     session_factory = get_session_factory(engine)
 

@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import configure_mappers
 import zope.sqlalchemy
 
-from .meta import ModelBase
+from .meta import Base
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines

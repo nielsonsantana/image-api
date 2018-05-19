@@ -8,3 +8,4 @@ def includeme(config):
     config.include(api_routes_v1, route_prefix='/api/v1')
 
     config.add_static_view('static', 'static', cache_max_age=3600)
+    config.add_static_view('image_api:media', 'media')
