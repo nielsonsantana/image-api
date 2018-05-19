@@ -20,7 +20,7 @@ paths:
         - image
       summary: Get image list
       description: Get image list. Need be authenticated.
-      operationId: getImageList
+      operationId: image_list_get
       responses:
         '200':
           description: A list of Images
@@ -35,7 +35,7 @@ paths:
         - image
       summary: Create image
       description: Create an image on server. Need be authenticated. 
-      operationId: createImage
+      operationId: image_list_post
       responses:
         default:
           description: successful operation
@@ -53,7 +53,7 @@ paths:
       tags:
         - image
       summary: Get image by id
-      operationId: getImageById
+      operationId: image_get
       parameters:
         - name: id
           in: path
@@ -77,7 +77,7 @@ paths:
         - image
       summary: Updated image
       description: Update an image. Need be authenticated.
-      operationId: updateImage
+      operationId: image_put
       parameters:
         - name: id
           in: path
@@ -102,7 +102,7 @@ paths:
         - image
       summary: Delete Image
       description: Delete an image on storage. Need be authenticated.
-      operationId: deleteImage
+      operationId: image_delete
       parameters:
         - name: id
           in: path
@@ -115,6 +115,27 @@ paths:
           description: Invalid image id supplied
         '404':
           description: Image not found
+  /media/{filename}:
+    get:
+      summary: Get image file by filename
+      description: Get image list. Need be authenticated.
+      operationId: getImageList
+      parameters:
+        - name: filename
+          in: path
+          description: Image file name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Image file
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+      security:
+      - api_key: []
 components:
   schemas:
     Image:
