@@ -5,9 +5,7 @@ from image_api.api_v1.models import Image
 from image_api.api_v1.tests import BaseTest
 from image_api.api_v1.utils import extract_metadata
 
-from .settings import IMAGE_JPG_ENCODED
 from .settings import IMAGE_JPG_ENCODED_STRING
-from .settings import IMAGE_PNG_ENCODED
 from .settings import IMAGE_PNG_ENCODED_STRING
 
 BASE_API_URL = '/api/v1'
@@ -44,14 +42,14 @@ class ImageRestApiTests(unittest.TestCase):
         assert response.status_int == 201
 
     def test_get_image_by_id(self):
-        json = {'image': IMAGE_JPG_ENCODED}
+        json = {'image': ''}
         response = self.testapp.get(self.api_url_detail, json)
 
         print(response.body)
         assert response.status_int == 200
 
     def test_get_image_list(self):
-        json = {'image': IMAGE_JPG_ENCODED}
+        json = {'image': ''}
         response = self.testapp.get(self.api_url_list, json)
 
         assert response.status_int == 200
