@@ -47,7 +47,7 @@ class Image(Base):
         if not serialize_fields:
             serialize_fields = [
                 'id', 'name', 'size', 'format', 'width',
-                'length', 'filename', 'image_url'
+                'length', 'filename'
             ]
 
         d = {}

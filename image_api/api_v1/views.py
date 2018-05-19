@@ -7,6 +7,8 @@ from pyramid.response import Response
 from pyramid.view import notfound_view_config
 from pyramid.view import view_config
 
+from image_api.settings import get_media_dir
+
 from .models import Image
 from .utils import base64decode
 
@@ -47,6 +49,9 @@ class NotFoundApiResponse(APIResponse):
     message = 'Path not found'
     code = 404
 
+    def __init__(self, message='', code=200, content='', type=''):
+        super(NotFoundApiResponse, self).__init__(self.message, self.code)
+
 
 @notfound_view_config(renderer='json')
 def notfound_view(request):
@@ -77,6 +82,12 @@ def image_put(request, **kwargs):
     temp.write(image_file)
     temp.close()
 
+    filename = '{}.{}'.format(uuid.uuid4().hex, image.extension)
+    filename_path = '{}/{}'.format(get_media_dir(), filename)
+
+    shutil.copy(temp.name, filename_path)
+    image.filename = filename
+
     image.update_image_matadata(temp.name)
     image.save(request.dbsession)
 
@@ -102,7 +113,7 @@ def image_detail(request):
         return NotFoundApiResponse()
 
 
-def imag_list_get(request, **kwargs):
+def image_list_get(request, **kwargs):
     query = request.dbsession.query(Image)
     image_list = [obj.to_json() for obj in query]
     return APIResponse('Updated', content=image_list)
@@ -120,9 +131,11 @@ def image_list_post(request, **kwargs):
 
     image.update_image_matadata(temp.name)
 
-    media_dir = 'media'
-    filename = '{}/{}.{}'.format(media_dir, uuid.uuid4().hex, image.extension)
-    shutil.copy(temp.name, filename)
+    filename = '{}.{}'.format(uuid.uuid4().hex, image.extension)
+    filename_path = '{}/{}'.format(get_media_dir(), filename)
+
+    shutil.copy(temp.name, filename_path)
+    image.filename = filename
 
     image.save(request.dbsession)
 
@@ -131,5 +144,5 @@ def image_list_post(request, **kwargs):
 
 @view_config(route_name='image_list', renderer='json')
 def image_list(request):
-    dispatch_dict = {'GET': imag_list_get, 'POST': image_list_post}
+    dispatch_dict = {'GET': image_list_get, 'POST': image_list_post}
     return request_dispatch(request, dispatch_dict)

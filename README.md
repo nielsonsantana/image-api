@@ -11,32 +11,41 @@ This tree show some notes about the code structure of the project.
     .
     ├── CHANGES.txt
     ├── compose
-    │   └── start.sh            # Script to start the server in development mode
+    │   └── start.sh                # Script to start the server in development mode
     ├── development.ini
     ├── docker-compose.yml
     ├── docker-entrypoint.sh
     ├── Dockerfile
     ├── documentation-api.yml
     ├── image_api
-    │   ├── api_v1              # Main application where the REST API was implemented
+    │   ├── api_v1                  # Main application where the REST API was implemented
     │   │   ├── __init__.py
-    │   │   ├── models.py       # Image model
-    │   │   ├── routes.py       # Api routes
-    │   │   ├── tests           # Tests for views, model, utils and functional
-    │   │   ├── utils.py        # Helper functions
-    │   │   └── views.py
+    │   │   ├── models.py           # Image model
+    │   │   ├── routes.py           # Api routes
+    │   │   ├── tests               # Tests for views, model, utils and functional
+    │   │   ├── tests
+    │   │   │   ├── __init__.py
+    │   │   │   ├── base.py
+    │   │   │   ├── resources  
+    │   │   │   ├── settings.py
+    │   │   │   ├── test_funcional_rest_api.py
+    │   │   │   ├── test_models.py
+    │   │   │   ├── test_utils.py
+    │   │   │   └── test_views.py
+    │   │   ├── utils.py            # Helper functions
+    │   │   └── views.py            # All views used in the project
     │   ├── core
     │   │   ├── __init__.py
     │   │   ├── models
     │   │   ├── routes.py
     │   │   └── views.py
-    │   ├── __init__.py         # Initialize the Project 
-    │   ├── routes.py           # Setup routes
-    │   ├── scripts             # Script to initialize db
+    │   ├── __init__.py             # Initialize the Project
+    │   ├── routes.py               # Setup routes
+    │   ├── scripts                 # Script to initialize db
     │   ├── static
     │   └── templates
     ├── LICENSE
-    ├── media                   # Directore to store of images
+    ├── media                       # Directore to store of images
     ├── production.ini
     ├── pytest.ini
     ├── README.md

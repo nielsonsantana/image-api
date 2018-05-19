@@ -53,7 +53,6 @@ class ImageViewsTests(BaseTest):
         request_retrive.matchdict = {'id': image_id}
         response = image_detail(request_retrive)
 
-        assert response
         assert response.code == 200
 
     def test_get_image_list(self):
