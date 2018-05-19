@@ -73,3 +73,6 @@ API docs at https://app.swaggerhub.com/apis/nsantana/Image-api-pyramid/1.0.0
 
 ## Automated Build and Test
 Access at https://travis-ci.org/nielsonsantana/image-api
+
+## Docker Image Repository
+Access at https://hub.docker.com/r/nsantana/image-api-pyramid/
