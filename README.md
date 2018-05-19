@@ -1,47 +1,72 @@
 Image Api in Pyramid
 =========
 
-This project was built based on template [pyramid-cookiecutter-alchemy][https://github.com/Pylons/pyramid-cookiecutter-alchemy].
+[![Build Status](https://travis-ci.org/nielsonsantana/image-api.svg?branch=master)](https://travis-ci.org/nielsonsantana/image-api)
 
-Não gostei do modo como as rotas são declaradas.
+This project was built based on template [pyramid-cookiecutter-alchemy](https://github.com/Pylons/pyramid-cookiecutter-alchemy).
 
 Pontos que não gostei no pyramid:
 Não encontrei uma forma simples de gerar a url sem baseado no nome da rota.
 
+## Project Structure
+This tree show some notes about the code structure of the project.
+    
+    .
+    ├── CHANGES.txt
+    ├── compose
+    │   └── start.sh
+    ├── development.ini
+    ├── docker-compose.yml
+    ├── docker-entrypoint.sh
+    ├── Dockerfile
+    ├── documentation-api.yml
+    ├── image_api
+	│   ├── api_v1				# Main application where the REST API was implemented
+	│   │   ├── __init__.py
+	│   │   ├── models.py 		# Image model
+	│   │   ├── routes.py 		# Api routes
+	│   │   ├── tests			# Tests for views, model, utils and functional
+	│   │   ├── utils.py 		# Helper functions
+	│   │   └── views.py
+	│   ├── core
+	│   │   ├── __init__.py
+	│   │   ├── models
+	│   │   ├── routes.py
+	│   │   └── views.py
+    │   ├── __init__.py 		# Initialize the Project 
+    │   ├── routes.py 			# Setup routes
+    │   ├── scripts				# Script to initialize db
+    │   ├── static
+    │   └── templates
+    ├── LICENSE
+    ├── media 					# Directore to store of images
+    ├── production.ini
+    ├── pytest.ini
+    ├── README.md
+    ├── requirements
+    │   ├── base.txt
+    │   └── test.txt
+    ├── requirements.txt
+    └── setup.py
 
-Instalação do docker-compose
+## Getting Started
+To start using the project In order to use and develop the project is need install 
+### Using docker-compose
+Fallow the install instructions at https://docs.docker.com/compose/install/
+After install docker-compose, use this command to start:
+    docker-compose up
+    
+### Using docker
+Build the docker project with the command:
+    
+    docker build -t image-api .
 
-https://docs.docker.com/compose/install/
+Start the image-api with the command:
+    
+    docker run image-api /app/compose/start.sh
+    
+#### Tests using docker
+    docker run --rm image-api bash -c "pip install -r requirements/tests.txt && pytest"
 
-
-
-Getting Started
----------------
-
-- Change directory into your newly created project.
-
-    cd image_api
-
-- Create a Python virtual environment.
-
-    python3 -m venv env
-
-- Upgrade packaging tools.
-
-    env/bin/pip install --upgrade pip setuptools
-
-- Install the project in editable mode with its testing requirements.
-
-    env/bin/pip install -e ".[testing]"
-
-- Configure the database.
-
-    env/bin/initialize_image_api_db development.ini
-
-- Run your project's tests.
-
-    env/bin/pytest
-
-- Run your project.
-
-    env/bin/pserve development.ini
+## API
+API docs at https://
