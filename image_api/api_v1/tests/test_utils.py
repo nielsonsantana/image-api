@@ -1,10 +1,7 @@
 import unittest
 
-from .settings import DIR_PATH
 from .settings import IMAGE_JPG
-from .settings import IMAGE_JPG_ENCODED
 from .settings import IMAGE_PNG
-from .settings import IMAGE_PNG_ENCODED
 
 
 from image_api.api_v1.utils import extract_metadata

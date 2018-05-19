@@ -1,5 +1,3 @@
-import base64
-import os
 import transaction
 import unittest
 

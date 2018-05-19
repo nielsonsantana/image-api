@@ -8,6 +8,7 @@ from sqlalchemy import String
 from sqlalchemy import Enum
 
 from image_api.core.models import Base
+from .utils import extract_metadata
 
 
 class ImageFormatEnum(enum.Enum):
@@ -20,10 +21,11 @@ class Image(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     size = Column(Integer)
-    format = Column(Enum(ImageFormatEnum))
+    format = Column(String)
     width = Column(Integer)
     length = Column(Integer)
     filename = Column(String)
+    extension = Column(String)
 
     image = None
 
@@ -45,7 +47,7 @@ class Image(Base):
         if not serialize_fields:
             serialize_fields = [
                 'id', 'name', 'size', 'format', 'width',
-                'length', 'filename'
+                'length', 'filename', 'image_url'
             ]
 
         d = {}
@@ -57,6 +59,25 @@ class Image(Base):
 
     def get_absolute_url_image(self):
         pass
+
+    image_url = property(get_absolute_url_image)
+
+    def update(self, **kwargs):
+        update_fields = [
+            'name', 'size', 'format', 'width', 'length', 'filename',
+            'extension'
+        ]
+        for attr_name, value in kwargs.items():
+            if attr_name in update_fields:
+                setattr(self, attr_name, value)
+
+    def update_image_matadata(self, image_path):
+        """
+        Arg:
+            image_path - Receives a image path
+        """
+        metadata = extract_metadata(image_path)
+        self.update(**metadata)
 
 
 Index('image_index', Image.name, unique=False, mysql_length=255)
