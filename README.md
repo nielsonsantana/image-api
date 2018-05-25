@@ -73,6 +73,11 @@ Build the docker project with the command:
 Start the image-api with the command:
     
     docker run -it image-api /app/compose/start.sh
+
+### Initialize database
+Run this command inside the docker to initialize the database.
+
+    initialize_image_api_db development.ini
     
 #### Tests using docker
     docker run --rm image-api bash -c "pip install -r requirements/tests.txt && pytest"
