@@ -2,7 +2,7 @@ version: '2'
 services:
   web.com:
     build: .
-    command: bash -c "./compose/start.sh"
+    command: /app/compose/start.sh
     ports:
         - "8000:8000"
     volumes:
