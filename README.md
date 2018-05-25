@@ -72,7 +72,7 @@ Build the docker project with the command:
 
 Start the image-api with the command:
     
-    docker run image-api /app/compose/start.sh
+    docker run -it image-api /app/compose/start.sh
     
 #### Tests using docker
     docker run --rm image-api bash -c "pip install -r requirements/tests.txt && pytest"
